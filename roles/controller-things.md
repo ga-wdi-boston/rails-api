@@ -1,7 +1,7 @@
 # Role: Things Controller
 
 ## Description
-The Things Controller is responsible for handling requests related to the 'Things' resource. When it receives a direction from the server it follows through without hesitation, often calling on one or more Models to help it complete its task. In addition, once the controller is done with its job, it needs to construct a 'View' - information to share back to the client.
+The Things Controller is responsible for handling requests related to the 'Things' resource. When it receives a direction from the Server, it follows through without hesitation, often calling on one or more Models to help it complete its task. In addition, once the Controller is done with its job, it needs to construct a 'View' - information to share back to the Client.
 
 Here is the full list of 'actions' that the Things Controller can perform.
 
@@ -48,7 +48,7 @@ Same as `show`, for the Thing you just updated (with new properties).
 Write "Destroyed Thing with ID: (id)"
 
 ## Errors
-If for whatever reason you can't successfully complete your job, send an 'ERROR' message back to the server.
+If for whatever reason you can't successfully complete your job, send an 'ERROR' message back to the Server.
 e.g.
 * "Error: No such ID" (if the ID doesn't exist)
 * "Error: Bad Request" (if the Model says that your data isn't valid)

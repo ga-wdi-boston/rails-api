@@ -7,10 +7,10 @@
 By the end of this lesson, students should be able to:
 
 - Explain why a back-end is necessary.
-- List some of the typical responsibilities of a typical back-end, and identify which components within (R-)M-V-C map to those responsibilities.
-- Map (R-)M-V-C roles to specific components of Rails.
+- List some of the responsibilities of a typical back-end, and identify which components within (R)MVC map to those responsibilities.
+- Map (R)MVC roles to specific components of Rails.
 - Indicate where different types of files can be found within a Rails application.
-- Spin up a new Rails application using `rails new`.
+- Create a new Rails application using `rails new`.
 
 ## Prerequisites
 
@@ -40,7 +40,7 @@ Suppose we wanted to build an back-end app that records a user's height and weig
 1. A user makes a POST request through a front-end application, and this POST request contains data - specifically, the latest measurements of height and weight.
 2. When the POST request is received by the server, the back-end app parses the request and extracts the relevant information.
 3. The data from the POST request gets added to our records.
-4. As confirmation, a JSON with an identifier (for future lookup) of the measurement we just added gets sent to the front end.
+4. As confirmation, a JSON with an identifier (for future lookup of the measurement we just added) gets sent to the front end.
 
 Our app can also retrieve records, like so:
 1. A user makes a GET request through the front-end, asking for a specific record.
@@ -56,15 +56,13 @@ If we were to try to generalize and abstract away the differences between these 
 
 > The quartet of 'create', 'read', 'update', and 'destroy' is commonly known as 'CRUD'; each refers to a specific type of action that can be performed on our data storage system. Each of these types might have more than one specific action associated with it ('read one' vs 'read all', for instance). More on this tomorrow...
 
-One common way of dividing up these responsibilities is the '**MVC**' (_Model-View-Control_) architecture pattern. This pattern involves making three core types of components, each responsible for a different part of the app's functionality.
+One common way of dividing up these four responsibilities is the '**MVC**' (_Model-View-Control_) architecture pattern. This pattern involves making three core types of components, each responsible for a different part of the app's functionality.
 
 A **Model** directly manages the data in our application, and provides a representation of that data for the rest of the application to use.
 
-A **View** is like it sounds - it produces data for the user to consume.
+A **View** is like it sounds - it's data that gets sent back to the client for the user to consume.
 
-A **Controller** responds to user requests as they comes in, and utilizes both the model and the view components to perform the desired behavior and produce a response.
-
-![M-V-C](https://upload.wikimedia.org/wikipedia/commons/thumb/a/a0/MVC-Process.svg/200px-MVC-Process.svg.png)
+A **Controller** responds to user requests as they come in, and utilizes both the model and the view components to perform the desired behavior and produce a response.
 
 In addition to these three types of components, however, there is a fourth piece that it's important to consider with web apps in particular - **routing**. **Routes** indicate to the server which controllers should be triggered (and how) by which kinds of requests. It's a critical piece of the puzzle, and one we'll be looking at later today in more detail.
 
@@ -86,13 +84,11 @@ Break into groups of (roughly) seven. Each of you will be given a role to play; 
 
 The role of the client will be played by an instructor.
 
-When sending/receiving data from others, transmit the data through direct messages in Slack.
-
-Once the class is finished handling all of the requests, we'll regroup and have a discussion about how everything worked. What made sense? What didn't make sense?
+Once all groups have gone, we'll have a discussion about how everything went. What made sense? What didn't make sense?
 
 ## (R)MVC with Rails
 
-**Rails** is a web framework - a tool that helps us quickly and easily build web applications - written in Ruby, and designed and created by a danish programmer named David Heinemeier Hannson (also known as 'DHH'). Although Rails applications don't match up perfectly with the abstract idea of MVC, their architecture is fairly similar.
+**Rails** is a web framework - a tool that helps us quickly and easily build web applications - written in Ruby, and designed and created by a Danish programmer named David Heinemeier Hannson (also known as 'DHH'). Although Rails applications don't match up perfectly with the abstract idea of MVC, their architecture is fairly similar.
 
 Let's take a look at an actual Rails app and see how it lines up. Fork and clone [this repo](https://github.com/ga-wdi-boston/rails-tic-tac-toe-api). Recognize it? It's your Tic Tac Toe back-end from Project 1! Now open it up in Sublime - you should see a file structure like this:
 
@@ -185,7 +181,7 @@ Let's take a look at an actual Rails app and see how it lines up. Fork and clone
 
 ```
 
-There are a lot of things in here, so let's take a step back and just look at directories at the top level of our app.
+There are a **ton** of things in here, so let's take a step back and just look at directories at the top level of our app.
 
 ```bash
 .
@@ -201,16 +197,18 @@ There are a lot of things in here, so let's take a step back and just look at di
 
 * The `app` directory holds the code for our application itself. We'll be writing a lot of code here.
 * `bin` hold the binary code for Rails and some of the programs it depends on - better not touch this directory.
-* `config` holds configuration settings for our app and for the things that plug into it. This includes things like environmental variables and secret keys, but also things like the routing configuration for our server (which is not part of our Rails app, but which our app plug into). **The `routes.rb` file, in particular, sets up all of the routing for our app.**
+* `config` holds configuration settings for our app and for the things that plug into it. This includes things like environmental variable settings and secret keys, but also things like the routing configuration for our server (which is not part of our Rails app, but which our app plugs into). **The `routes.rb` file, in particular, sets up all of the routing for our app.**
 * `db` holds files related to the structure of the application's database. Since the database, like the server, is separate from Rails and not part of our app, it makes sense to keep this outside of the `app` directory.
-  > More on this tomorrow.
-* `log` is a place where Rails keeps its log files - records of things that have happened when the app was run. Looking through here can sometimes be helpful if we've hit a bug.
-* `public` holds some static HTML pages that anyone can see, regardless of whether or not they're logged into our app. These are typically pages that represent different error our app might have hit, such as `404`.
-* `vendor` holds non-gem software that our app is using. Don't worry too much about this one.
+
+    > More on this tomorrow.
+
+* `log` is a place where Rails keeps its log files - records of things that have happened when the app was running. Looking through here can sometimes be helpful if you've hit a bug.
+* `public` holds some static HTML pages that anyone can see, regardless of whether or not they're logged into our app. These are typically pages that represent different errors our app might have hit, such as `404`.
+* `vendor` holds non-gem software that our app will use. Don't worry too much about this one for now.
 
 For now, you only need to think about `app`, `config`, and `db` - you probably won't be touching any code outside of those three directories. How is that possible? Because Rails actually builds out most of these files and folders for you, every time you use it to create a new application. That's why it's called a 'framework' - it gives you the skeleton for a brand new app, which you can then customize.
 
-Now we'll dive into the `app` directory. This app in particular has more going on than yours probably will, but it still has all the basic components.
+Next, we'll dive into the `app` directory. This app in particular has more going on than yours probably will, but it still has all the basic components.
 
 ```bash
 ./app

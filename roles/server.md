@@ -6,7 +6,7 @@ The server is responsible for
 2. triggering the appropriate controller actions in response to those requests (using the routes that have been previously configured)
 3. sending the 'view', produced by the controller at the end of its action, back to the client
 
-The table of routes you'll be working with are below; any time a route has a term with a colon, like `:this`, it means that a value will be passed in as part of the path.
+The table of routes you'll be working with is below; any time a route has a term with a colon, like `:this`, it means that a value will be passed in as part of the path.
 
 ### Routes for People(/Places/Things) Controller
 | Path | Request Type | Controller | Controller Action | Meaning |
@@ -24,7 +24,7 @@ The table of routes you'll be working with are below; any time a route has a ter
 | `/login`  | POST | Users Controller | `login` |  _Confirm whether or or not the user exists, and if the password is a match; if this is successful, give the user a token that they can use._ |
 
 ## Errors
-If for whatever reason you can't successfully complete your job, send an 'ERROR' message back to the server.
+If for whatever reason you can't successfully complete your job, send an 'ERROR' message back to the client.
 e.g.
 * "Error: No such ID" (if the ID doesn't exist)
 * "Error: Bad Request" (if the Model says that your data isn't valid)
