@@ -1,5 +1,9 @@
 # Role: Places Controller
 
+### Can Talk To:
+* Server
+* Places Model
+
 ## Description
 The Places Controller is responsible for handling requests related to the 'Places' resource. When it receives a direction from the Server, it follows through without hesitation, often calling on one or more Models to help it complete its task. In addition, once the Controller is done with its job, it needs to construct a 'View' - information to share back to the Client.
 
@@ -13,7 +17,7 @@ Here is the full list of 'actions' that the Places Controller can perform.
 | `update` | Ask the Places Model if it can find the Place with the ID you were given. If it can, tell the Place Model to update that Place with the information you've been given, and give you back the new data on that Place. |
 | `destroy` | Ask the Places Model if it can find the Place with the ID you were given. If it can, tell the Place Model to delete that Place. |
 
-### Views for Each Action:
+### View Templates for Each Action:
 
 #### `show`
 ```html

@@ -1,5 +1,9 @@
 # Role: People Controller
 
+### Can Talk To:
+* Server
+* People Model
+
 ## Description
 The People Controller is responsible for handling requests related to the 'People' resource. When it receives a direction from the Server, it follows through without hesitation, often calling on one or more Models to help it complete its task. In addition, once the Controller is done with its job, it needs to construct a 'View' - information to share back to the Client.
 
@@ -13,7 +17,7 @@ Here is the full list of 'actions' that the People Controller can perform.
 | `update` | Ask the People Model if it can find the Person with the ID you were given. If it can, tell the Person Model to update that Person with the information you've been given, and give you back the new data on that Person. |
 | `destroy` | Ask the People Model if it can find the Person with the ID you were given. If it can, tell the Person Model to delete that Person. |
 
-### Views for Each Action:
+### View Templates for Each Action:
 
 #### `show`
 ```html

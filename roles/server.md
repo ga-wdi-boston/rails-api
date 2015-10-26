@@ -1,5 +1,10 @@
 # Role: Server
 
+### Can Talk To:
+* People Controller
+* Places Controller
+* Things Controller
+
 ## Description
 The server is responsible for
 1. receiving the requests that the client sends
@@ -9,19 +14,19 @@ The server is responsible for
 The table of routes you'll be working with is below; any time a route has a term with a colon, like `:this`, it means that a value will be passed in as part of the path.
 
 ### Routes for People(/Places/Things) Controller
-| Path | Request Type | Controller | Controller Action | Meaning |
+| Path | Request Type | Controller | Controller Action | Controller Directions |
 |:--:|:--:|:--:|:--:|:--:|
 | `/people` | GET | People Controller | `index` | _Retrieve all people._ |
 | `/people` | POST | People Controller | `create` | _Make a new person, using data provided by the request._ |
-| `/people/:id` | GET | People Controller | `show` | _Retrieve one specific person who has the given id._ |
+| `/people/:id` | GET | People Controller | `show` | _Retrieve the specific person who has the given id._ |
 | `/people/:id` | PATCH/PUT | People Controller | `update` | _Change the properties of the person with the given id, using data provided by the request._ |
 | `/people/:id` | DELETE | People Controller | `destroy` | _Destroy the person with the given id._ |
 
-### Routes for UserController (Optional)
+<!-- ### Routes for UserController (Optional)
 | Path | Request Type | Controller | Controller Action | Meaning |
 |:--:|:--:|:--:|:--:|:--:|
 | `/register` | POST | Users Controller | `create` | _Create a new User._ |
-| `/login`  | POST | Users Controller | `login` |  _Confirm whether or or not the user exists, and if the password is a match; if this is successful, give the user a token that they can use._ |
+| `/login`  | POST | Users Controller | `login` |  _Confirm whether or or not the User exists, and if the password is a match; if this is successful, give the user a token that they can use._ | -->
 
 ## Errors
 If for whatever reason you can't successfully complete your job, send an 'ERROR' message back to the client.
