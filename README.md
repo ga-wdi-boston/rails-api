@@ -72,7 +72,7 @@ In addition to these three types of components, however, there is a fourth piece
 (R)MVC architecture is very common in web applications, and Rails (as we'll soon see) gives us the tools to spin up applications that are roughly in line with the idea of (R)MVC.
 
 #### Your Turn :: Act Out an (R)MVC Back-End
-We're going to act our the various parts of an (R)MVC application. Link up with another squad so that you're in a group of roughly seven, and assign each member of your 'super-group' one of the roles below. These roles are:
+We're going to act our the various parts of an (R)MVC application. Link up with another squad so that you're in a group of roughly seven, and assign each member of your 'super-group' one of the roles below. Use the nametags provided. These roles are:
 - Server
 - Controllers
   * People Controller
@@ -247,7 +247,7 @@ Don't worry about `assets`, `serializers`, `mailers`, or `helpers` for now.
 
 ### Your Turn :: (R)MVC with Rails
 
-Now that you've seen a fully built-out Rails app, let's a look at a brand new one, hot off the presses.  
+Now that you've seen a fully built-out Rails app, let's a look at a brand new one, hot off the presses.
 
 First, navigate to the folder you keep your project folders, and open up SublimeText at that location.
 
