@@ -91,7 +91,7 @@ We'll work through one example request together, and then each super-group will 
 
 **Rails** is a web framework - a tool that helps us quickly and easily build web applications - written in Ruby, and designed and created by a Danish programmer named David Heinemeier Hannson (also known as 'DHH'). Although Rails applications don't match up perfectly with the abstract idea of MVC, their architecture is fairly similar.
 
-Let's take a look at an actual Rails app and see how it lines up. Fork and clone [this repo](https://github.com/ga-wdi-boston/rails-tic-tac-toe-api). Recognize it? It's your Tic Tac Toe back-end from Project 1! Now open it up in Sublime - you should see a file structure like this:
+Let's take a look at an actual Rails app and see how it lines up. Fork and clone [this repo](https://github.com/ga-wdi-boston/rails-tic-tac-toe-api). Recognize it? It's your Tic Tac Toe back-end from Project 1! Now open it up in Atom - you should see a file structure like this:
 
 ```bash
 .
@@ -245,26 +245,106 @@ Three of these directories should jump out at you: `controllers`, `models`, and 
 
 Don't worry about `assets`, `serializers`, `mailers`, or `helpers` for now.
 
-### Your Turn :: (R)MVC with Rails
 
-Now that you've seen a fully built-out Rails app, let's a look at a brand new one, hot off the presses.  
+## Code Along: Let's do this
 
-First, navigate to the folder you keep your project folders, and open up SublimeText at that location.
+Now that we've conceptually wrapped our heads around what goes into a backend
+lets make one ourselves.
 
+__I know some of you will be tempted to speed ahead... DON'T!__
+
+First, lets install something that will make this process much easier in future
+iterations:
+
+- In your console type `gem install lunchy`
+- Enter `lunchy start postgres`
+- Type `lunchy status` to check the status of postgres
+- To stop postgres type `lunchy stop postgres`
+
+### Creating a Blog:
+
+- gem `install rails-api`
+- Start postgres with `lunchy start postgres`
+- Run `rails-api new my_app --skip-javascript --skip-sprockets --skip-turbolinks --skip-test-unit --database=postgresql`
+- Scaffold our User, Posts and Comments
+    - `rails-api g scaffold user email:string password:string`
+    - `rails-api g scaffold post title:string body:text user:references`
+    - `rails-api g scaffold comment body:text user:references post:references`
+- Now lets create and migrate our database by typing in:
+    - `rake db:create`
+    - `rake db:migrate`
+- Lets start our server! type: `rails server`, some people may have this aliased
+as as `rails s` or `rails serve`
+- Now navigate to `localhost:3000/users` (empty brackets is a good sign)
+- Lets actually see some data, by seeding our `db/seeds.rb` file. Copy and paste
+the following, feel free to make stylistic edits.
+
+```ruby
+u1 = User.create(email: 'TomBrady@patriots.com', password: 'passking')
+u2 = User.create(email: 'PeytonManning@sucker.com', password: 'password')
+
+p1 = u1.posts.create(title: 'Firsty McPost', body: 'Pats rock and other stuff')
+p2 = u1.posts.create(title: 'Secondy Posty', body: 'New England is still awesome')
+
+p3 = u2.posts.create(title: 'HgH Post', body: 'Anybody got PEDs?')
+p4 = u2.posts.create(title: 'Superbowl fail', body: 'I won, but still lost.')
+
+p3.comments.create(body: "You're an idiot", user: u1)
+p4.comments.create(body: "Ya, you kinda sucked", user: u1)
 ```
-subl .
+
+- Now we have to update our models with relationships put the following in your
+user model (`model/user.rb`):
+```ruby
+class User < ActiveRecord::Base
+  has_many :posts
+  has_many :comments
+end
 ```
 
-Then, run the following command :
-
+- and your post model (`model/post.rb`):
+```ruby
+class Post < ActiveRecord::Base
+  has_many :comments
+end
 ```
-rails new my_first_rails_app --database=postgresql
+
+- Now seed your database by running `rake db:seed`
+- Try navigating to `localhost:3000/users` or `/posts` or `/comments`. You should see
+the JSON you seeded. Try making a curl request to send JSON to your API:
+
+```bash
+curl -- include --request POST --header "Content-Type: application/json" -d '{
+  "post": {
+    "title": "a sample title",
+    "body": "a sample body"
+  }
+}' localhost:3000/posts
 ```
 
-In your squads, take a look at all the files that have just been created. Then, compare this new project alongside the Tic Tac Toe API, and come up with a list of ten differences and ten similarities between the two projects; we'll talk through these lists together as a class.
+__Serializers__
+- Lets make our api a little bit safer and easier to use. In your `Gemfile` add: `gem "active_model_serializers", github: "rails-api/active_model_serializers"` and `bundle install`.
 
-## Additional Resources
+- Now lets generate our User, Post and Comment serializers. Use the following commands to generate each:
+`rails g serializer user`, `rails g serializer comment`, `rails g serializer post`
+- Navigate to `localhost:3000/users` and see what you have.  In your serializer
+files try adding more `attributes` as keys, and see how this changes. (check your
+`db/schema` file for some ideas.)
+- After adding attribute fields to your user, post and comment serializers add a has many relation ship to your user serializer.  something like this blow your attributes line: `has_many :posts`  (notice the plural here, rails is very semantic)
+- If you want to get rid of those annoying starting brackets you can do so by putting the following in your `application_controller.rb`:
+
+```ruby
+def default_serializer_options
+  { root: false }
+end
+```
+
+Congratulations you just wrote your first backend.
+
+
+## Additional Resource
 
 - **[RailsGuides](http://guides.rubyonrails.org/getting_started.html)**
 - **[Official Rails Documentation](http://rubyonrails.org/documentation/)**
 - **[MVC](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller)**
+- **[JSON API](https://thesocietea.org/2015/02/building-a-json-api-with-rails-part-1-getting-started/)**
