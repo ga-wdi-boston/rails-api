@@ -290,7 +290,7 @@ p3 = u2.posts.create(title: 'HgH Post', body: 'Anybody got PEDs?')
 p4 = u2.posts.create(title: 'Superbowl fail', body: 'I won, but still lost.')
 
 p3.comments.create(body: "You're an idiot", user: u1)
-p4.comments.create(body: "Ya, you kinda sucked", user: u1)
+p4.comments.create(body: "Ya, you were kinda terrible", user: u1)
 ```
 
 - Now we have to update our models with relationships put the following in your
@@ -323,10 +323,11 @@ curl -- include --request POST --header "Content-Type: application/json" -d '{
 ```
 
 __Serializers__
-- Lets make our api a little bit safer and easier to use. In your `Gemfile` add: `gem "active_model_serializers", github: "rails-api/active_model_serializers"` and `bundle install`.
 
+- Lets make our api a little bit safer and easier to use. In your `Gemfile` add: `gem "active_model_serializers", github: "rails-api/active_model_serializers"` and `bundle install`.
 - Now lets generate our User, Post and Comment serializers. Use the following commands to generate each:
 `rails g serializer user`, `rails g serializer comment`, `rails g serializer post`
+
 - Navigate to `localhost:3000/users` and see what you have.  In your serializer
 files try adding more `attributes` as keys, and see how this changes. (check your
 `db/schema` file for some ideas.)
