@@ -10,7 +10,7 @@ By the end of this lesson, students should be able to:
 - List some of the responsibilities of a typical back-end, and identify which components within (R)MVC map to those responsibilities.
 - Map (R)MVC roles to specific components of Rails.
 - Indicate where different types of files can be found within a Rails application.
-- Create a new Rails application using `rails new`.
+- Create a new Rails application using `rails-api new`.
 
 ## Prerequisites
 
@@ -265,7 +265,7 @@ iterations:
 
 - gem `install rails-api`
 - Start postgres with `lunchy start postgres`
-- Run `rails-api new my_app --skip-javascript --skip-sprockets --skip-turbolinks --skip-test-unit --database=postgresql`
+- Run `rails-api new blog_app --skip-javascript --skip-sprockets --skip-turbolinks --skip-test-unit --database=postgresql`
 - Scaffold our User, Posts and Comments
     - `rails-api g scaffold user email:string password:string`
     - `rails-api g scaffold post title:string body:text user:references`
