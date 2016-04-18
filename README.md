@@ -253,14 +253,6 @@ lets make one ourselves.
 
 __I know some of you will be tempted to speed ahead... DON'T!__
 
-First, lets install something that will make this process much easier in future
-iterations:
-
-- In your console type `gem install lunchy`
-- Enter `lunchy start postgres`
-- Type `lunchy status` to check the status of postgres
-- To stop postgres type `lunchy stop postgres`
-
 ### Creating a Blog:
 
 - gem `install rails-api`
@@ -332,13 +324,6 @@ __Serializers__
 files try adding more `attributes` as keys, and see how this changes. (check your
 `db/schema` file for some ideas.)
 - After adding attribute fields to your user, post and comment serializers add a has many relation ship to your user serializer.  something like this blow your attributes line: `has_many :posts`  (notice the plural here, rails is very semantic)
-- If you want to get rid of those annoying starting brackets you can do so by putting the following in your `application_controller.rb`:
-
-```ruby
-def default_serializer_options
-  { root: false }
-end
-```
 
 Congratulations you just wrote your first backend.
 
