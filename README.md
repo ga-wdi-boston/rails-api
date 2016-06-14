@@ -125,15 +125,16 @@ We're going to act our the various parts of an (R)MVC application. Link up with
 another squad so that you're in a group of roughly seven, and assign each member
 of your 'super-group' one of the roles below. These roles are:
 
+-   Client
 -   Server
 -   Controllers
-   *People Controller
-   *Places Controller
-   *Things Controller
+   -People Controller
+   -Places Controller
+   -Things Controller
 -   Models
-   *People Model
-   *Places Model
-   *Things Model
+   -People Model
+   -Places Model
+   -Things Model
 
 Once you've divvied up the roles, take two minutes to read through the
 directions for your role, found `./roles`; these directions explain what your
@@ -268,7 +269,8 @@ that it depends on - better not touch this directory.
 -   `config` holds configuration settings for our app and for the things that plug
 into it. This includes things like environmental variable settings and secret
 keys, but also things like the routing configuration for our server (which is
-not strictly part of our Rails app, but which our app uses); **the `routes.rb` file, in particular, defines all of the routing for our app.**
+not strictly part of our Rails app, but which our app uses); **the `routes.rb`
+file, in particular, defines all of the routing for our app.**
 -   `db` holds files related to the structure of the application's database. The
 database, like the server, is separate from Rails and is not strictly part of
 the app, so it makes sense to keep this outside of the `app` directory.
