@@ -12,7 +12,14 @@ components within (R)MVC map to those responsibilities.
 -   Map (R)MVC roles to specific components of Rails.
 -   Indicate where different types of files can be found within a Rails
 application.
--   Create a new Rails application using `rails-api new`.
+-   Bear witness to the creation of an API.
+
+## Preparation
+
+1.  [Fork and clone](https://github.com/ga-wdi-boston/meta/wiki/ForkAndClone)
+    this repository.
+1.  Create a new branch, `training`, for your work.
+1.  **DO NOT INSTALL DEPENDENCIES**
 
 ## Prerequisites
 
@@ -44,7 +51,7 @@ topic, and won't be touched on today.
 Fortunately, in the Unit 1 Project, you were given a pre-built back-end that
 could do all of those things. But how did it do them?
 
-### Your Turn :: Design Your Own Back-End
+## Your Turn :: Design Your Own Back-End
 
 In your squads, take fifteen minutes (and a patch of whiteboard), and write out
 all the different things that you think that the back-end to your Tic Tac Toe
@@ -56,7 +63,7 @@ need? How would the different responsibilities be broken up? Make a list.
 Once all groups are finished, we'll be sharing out our results and having a
 class-wide discussion.
 
-### One Possible Solution :: (R)MVC
+## One Possible Solution :: (R)MVC
 
 Suppose we wanted to build an back-end app that records a user's height and
 weight. It might work as follows:
@@ -119,7 +126,7 @@ we'll be looking at later today in more detail.
 see) gives us the tools to spin up applications that are roughly in line with
 the idea of (R)MVC.
 
-#### Your Turn :: Act Out an (R)MVC Back-End
+## Your Turn :: Act Out an (R)MVC Back-End
 
 We're going to act our the various parts of an (R)MVC application. Link up with
 another squad so that you're in a group of roughly seven, and assign each member
@@ -332,31 +339,29 @@ respective responsibilities of MVC.
 
 Don't worry about `assets`, `serializers`, `mailers`, or `helpers` for now.
 
-## Code Along: Let's do this
+## Demo: Building our first Rails App
 
 Now that we've conceptually wrapped our heads around what goes into a backend
 lets make one ourselves.
 
-__I know some of you will be tempted to speed ahead... DON'T!__
+**This is intended to show you how powerful Rails is; not so you understand!!**
+**We will go further into _how_ Rails works later on**
 
 ### Creating a Blog
 
--   gem `install rails-api`
--   Start postgres with `psql`
 -   Run `rails-api new blog_app --skip-javascript --skip-sprockets --skip-turbolinks
 --skip-test-unit --database=postgresql`
 -   Scaffold our User, Posts and Comments
-   -`rails-api g scaffold user email:string password:string`
-   -`rails-api g scaffold post title:string body:text user:references`
-   -`rails-api g scaffold comment body:text user:references post:references`
+  - `bundle exec rails-api g scaffold user email:string password:string`
+  - `bundle exec rails-api g scaffold post title:string body:text user:references`
+  - `bundle exec rails-api g scaffold comment body:text user:references post:references`
 -   Now lets create and migrate our database by typing in:
-    -`rake db:create`
-    -`rake db:migrate`
--   Lets start our server! type: `rails server`, some people may have this aliased
-as as `rails s` or `rails serve`
+  - `bundle exec rake db:create`
+  - `bundle exec rake db:migrate`
+-   Lets start our server! type: `bundle exec rails server`, some people may have
+this aliased as as `bundle exec rails s` or `bundle exec rails serve`
 -   Now navigate to `localhost:3000/users` (empty brackets is a good sign)
--   Lets actually see some data, by seeding our `db/seeds.rb` file. Copy and paste
-the following, feel free to make stylistic edits.
+-   Lets actually see some data, by seeding our `db/examples.rb` file.
 
 ```ruby
 u1 = User.create(email: 'TomBrady@patriots.com', password: 'passking')
@@ -390,29 +395,30 @@ class Post < ActiveRecord::Base
 end
 ```
 
--   Now seed your database by running `rake db:seed`
+-   Now seed your database by running `bundle exec rake db:example`
+-   Or  `bundle exec rake db:nuke_pave`
 -   Try navigating to `localhost:3000/users` or `/posts` or `/comments`. You should
 see the JSON you seeded. Try making a curl request to send JSON to your API:
 
 ```bash
-curl --include --request POST --header "Content-Type: application/json" -d '{
-  "post": {
-    "title": "a sample title",
-    "body": "a sample body"
-  }
-}' localhost:3000/posts
+curl --include --request POST http://localhost:3000/posts \
+--header "Content-Type: application/json" \
+--data: '{
+        "post": {
+          "title": "a sample title",
+          "body": "a sample body"
+        }
+      }'
 ```
 
-__Serializers__
+**Serializers**
 
--   Lets make our api a little bit safer and easier to use. In your `Gemfile` add:
-`gem "active_model_serializers", github: "rails-api/active_model_serializers"`
-and `bundle install`.
 -   Now lets generate our User, Post and Comment serializers. Use the following
 commands to generate each:
 
-`rails g serializer user`, `rails g serializer comment`, `rails g serializer
-post`
+-   `bundle exec rails g serializer user`,
+-   `bundle exec rails g serializer comment`,
+-   `bundle exec rails g serializer post`
 
 -   Navigate to `localhost:3000/users` and see what you have.  In your serializer
 files try adding more `attributes` as keys, and see how this changes. (check
@@ -422,11 +428,14 @@ has many relation ship to your user serializer.  something like this blow your
 attributes line: `has_many :posts`  (notice the plural here, rails is very
 semantic)
 
-Congratulations you just wrote your first backend.
-
 ## Additional Resource
 
 -   **[RailsGuides](http://guides.rubyonrails.org/getting_started.html)**
 -   **[Official Rails Documentation](http://rubyonrails.org/documentation/)**
 -   **[MVC](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller)**
 -   **[JSON API](https://thesocietea.org/2015/02/building-a-json-api-with-rails-part-1-getting-started/)**
+
+## [License](LICENSE)
+
+1.  All content is licensed under a CC­BY­NC­SA 4.0 license.
+1.  All software code is licensed under GNU GPLv3. For commercial use or alternative licensing, please contact legal@ga.co.
