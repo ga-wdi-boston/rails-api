@@ -1,6 +1,6 @@
 ![General Assembly Logo](http://i.imgur.com/ke8USTq.png)
 
-# Rails API Single Resource
+# Rails API Overview
 
 ## Objectives
 
@@ -26,13 +26,6 @@ application.
 -   Ruby basics
 -   Ruby objects and classes
 -   HTTP
--   [`rails-api`](https://github.com/rails-api/rails-api)
--   [`rails`](https://github.com/rails/rails)
--   [`active_model_serializers`](https://github.com/rails-api/active_model_serializers)
--   [`ruby`](https://www.ruby-lang.org/en/)
--   [`postgres`](http://www.postgresql.org)
-
-## Rails Overview
 
 ### Who Needs A Back-End
 
@@ -434,12 +427,6 @@ your `db/schema` file for some ideas.)
 has many relation ship to your user serializer.  something like this blow your
 attributes line: `has_many :posts`  (notice the plural here, rails is very
 semantic)
-
-## Demo: [Library-Demo app](https://github.com/ga-wdi-boston/rails-api-library-demo)
-
-## Code-Along: [Clinic-code-along-app](https://github.com/ga-wdi-boston/rails-api-clinic-code-along)
-
-## Lab: [Cookbook-lab-app](https://github.com/ga-wdi-boston/rails-api-cookbook-lab)
 
 ## Additional Resource
 
