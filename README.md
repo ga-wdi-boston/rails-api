@@ -27,7 +27,7 @@ application.
 -   Ruby objects and classes
 -   HTTP
 
-### Who Needs A Back-End
+## Who Needs A Back-End
 
 In Unit 1, each of you built a front-end application; it had a UI and behavioral
 logic, allowing users to play Tic Tac Toe in the browser. Isn't that enough? Why
@@ -51,7 +51,7 @@ topic, and won't be touched on today.
 Fortunately, in the Unit 1 Project, you were given a pre-built back-end that
 could do all of those things. But how did it do them?
 
-### Your Turn :: Design Your Own Back-End
+## Your Turn :: Design Your Own Back-End
 
 In your squads, take fifteen minutes (and a patch of whiteboard), and write out
 all the different things that you think that the back-end to your Tic Tac Toe
@@ -63,7 +63,7 @@ need? How would the different responsibilities be broken up? Make a list.
 Once all groups are finished, we'll be sharing out our results and having a
 class-wide discussion.
 
-### One Possible Solution :: (R)MVC
+## One Possible Solution :: (R)MVC
 
 Suppose we wanted to build an back-end app that records a user's height and
 weight. It might work as follows:
@@ -126,7 +126,7 @@ we'll be looking at later today in more detail.
 see) gives us the tools to spin up applications that are roughly in line with
 the idea of (R)MVC.
 
-#### Your Turn :: Act Out an (R)MVC Back-End
+## Your Turn :: Act Out an (R)MVC Back-End
 
 We're going to act our the various parts of an (R)MVC application. Link up with
 another squad so that you're in a group of roughly seven, and assign each member
@@ -339,7 +339,7 @@ respective responsibilities of MVC.
 
 Don't worry about `assets`, `serializers`, `mailers`, or `helpers` for now.
 
-### Demo: Building our first Rails App
+## Demo: Building our first Rails App
 
 Now that we've conceptually wrapped our heads around what goes into a backend
 lets make one ourselves.
