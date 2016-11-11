@@ -360,7 +360,7 @@ lets make one ourselves.
   - `bundle exec rake db:migrate`
 -   Lets start our server! type: `bundle exec rails server`, some people may have
 this aliased as as `bundle exec rails s` or `bundle exec rails serve`
--   Now navigate to `localhost:3000/users` (empty brackets is a good sign)
+-   Now navigate to `localhost:4741/users` (empty brackets is a good sign)
 -   Lets actually see some data, by seeding our `db/examples.rb` file.
 
 ```ruby
@@ -397,11 +397,11 @@ end
 
 -   Now seed your database by running `bundle exec rake db:example`
 -   Or  `bundle exec rake db:nuke_pave`
--   Try navigating to `localhost:3000/users` or `/posts` or `/comments`. You should
+-   Try navigating to `localhost:4741/users` or `/posts` or `/comments`. You should
 see the JSON you seeded. Try making a curl request to send JSON to your API:
 
 ```bash
-curl --include --request POST http://localhost:3000/posts \
+curl --include --request POST http://localhost:4741/posts \
 --header "Content-Type: application/json" \
 --data: '{
         "post": {
@@ -420,7 +420,7 @@ commands to generate each:
 -   `bundle exec rails g serializer comment`,
 -   `bundle exec rails g serializer post`
 
--   Navigate to `localhost:3000/users` and see what you have.  In your serializer
+-   Navigate to `localhost:4741/users` and see what you have.  In your serializer
 files try adding more `attributes` as keys, and see how this changes. (check
 your `db/schema` file for some ideas.)
 -   After adding attribute fields to your user, post and comment serializers add a
