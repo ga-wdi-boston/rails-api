@@ -23,9 +23,8 @@ application.
 
 ## Prerequisites
 
--   Ruby basics
--   Ruby objects and classes
--   HTTP
+-   [Ruby object inheritance](https://github.com/ga-wdi-boston/ruby-object-inheritance)
+-   [HTTP](https://github.com/ga-wdi-boston/http-json-discussion)
 
 ## Who Needs A Back-End
 
