@@ -352,9 +352,9 @@ lets make one ourselves.
 -   Run `rails-api new blog_app --skip-javascript --skip-sprockets --skip-turbolinks
 --skip-test-unit --database=postgresql`
 -   Scaffold our User, Posts and Comments
-  - `bundle exec rails-api g scaffold user email:string password:string`
-  - `bundle exec rails-api g scaffold post title:string body:text user:references`
-  - `bundle exec rails-api g scaffold comment body:text user:references post:references`
+  - `bundle exec rails-api generate scaffold user email:string password:string`
+  - `bundle exec rails-api generate scaffold post title:string body:text user:references`
+  - `bundle exec rails-api generate scaffold comment body:text user:references post:references`
 -   Now lets create and migrate our database by typing in:
   - `bundle exec rake db:create`
   - `bundle exec rake db:migrate`
