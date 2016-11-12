@@ -9,6 +9,7 @@ By the end of this lesson, students should be able to:
 -   Explain why a back-end is necessary.
 -   List some of the responsibilities of a typical back-end, and identify which
 components within (R)MVC map to those responsibilities.
+-   Explain the process flow from Client through Database and back
 -   Map (R)MVC roles to specific components of Rails.
 -   Indicate where different types of files can be found within a Rails
 application.
