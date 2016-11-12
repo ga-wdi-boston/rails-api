@@ -396,7 +396,7 @@ end
 ```
 
 -   Now seed your database by running `bundle exec rake db:example`
--   Or  `bundle exec rake db:nuke_pave`
+-   Or  `bundle exec rake db:drop db:create db:migrate`
 -   Try navigating to `localhost:4741/users` or `/posts` or `/comments`. You should
 see the JSON you seeded. Try making a curl request to send JSON to your API:
 
