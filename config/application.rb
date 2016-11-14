@@ -39,9 +39,15 @@ module RailsApiTemplate
     config.active_record.raise_in_transactional_callbacks = true
 
     # Cross-Origin Resource Sharing
-    config.middleware.use Rack::Cors do
+    # development client port
+    cors_port = 'GA'.each_byte.reduce('') { |a, e| a + format('%d', e) }.to_i
+    config.middleware.insert_before 0, Rack::Cors do
       allow do
-        origins ENV['CLIENT_ORIGIN'] || 'http://localhost:8080'
+        origins do |origin, _env|
+          '*' == ENV['CLIENT_ORIGIN'] ||
+            origin == ENV['CLIENT_ORIGIN'] ||
+            origin == "http://localhost:#{cors_port}"
+        end
         resource '*',
                  headers: :any,
                  methods: [:options, :get,

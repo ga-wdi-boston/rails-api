@@ -9,6 +9,7 @@ By the end of this lesson, students should be able to:
 -   Explain why a back-end is necessary.
 -   List some of the responsibilities of a typical back-end, and identify which
 components within (R)MVC map to those responsibilities.
+-   Explain the process flow from Client through Database and back
 -   Map (R)MVC roles to specific components of Rails.
 -   Indicate where different types of files can be found within a Rails
 application.
@@ -23,9 +24,8 @@ application.
 
 ## Prerequisites
 
--   Ruby basics
--   Ruby objects and classes
--   HTTP
+-   [Ruby object inheritance](https://github.com/ga-wdi-boston/ruby-object-inheritance)
+-   [HTTP](https://github.com/ga-wdi-boston/http-json-discussion)
 
 ## Who Needs A Back-End
 
@@ -352,15 +352,15 @@ lets make one ourselves.
 -   Run `rails-api new blog_app --skip-javascript --skip-sprockets --skip-turbolinks
 --skip-test-unit --database=postgresql`
 -   Scaffold our User, Posts and Comments
-  - `bundle exec rails-api g scaffold user email:string password:string`
-  - `bundle exec rails-api g scaffold post title:string body:text user:references`
-  - `bundle exec rails-api g scaffold comment body:text user:references post:references`
+  - `bundle exec rails-api generate scaffold user email:string password:string`
+  - `bundle exec rails-api generate scaffold post title:string body:text user:references`
+  - `bundle exec rails-api generate scaffold comment body:text user:references post:references`
 -   Now lets create and migrate our database by typing in:
   - `bundle exec rake db:create`
   - `bundle exec rake db:migrate`
 -   Lets start our server! type: `bundle exec rails server`, some people may have
 this aliased as as `bundle exec rails s` or `bundle exec rails serve`
--   Now navigate to `localhost:3000/users` (empty brackets is a good sign)
+-   Now navigate to `localhost:4741/users` (empty brackets is a good sign)
 -   Lets actually see some data, by seeding our `db/examples.rb` file.
 
 ```ruby
@@ -396,12 +396,12 @@ end
 ```
 
 -   Now seed your database by running `bundle exec rake db:example`
--   Or  `bundle exec rake db:nuke_pave`
--   Try navigating to `localhost:3000/users` or `/posts` or `/comments`. You should
+-   Or  `bundle exec rake db:drop db:create db:migrate`
+-   Try navigating to `localhost:4741/users` or `/posts` or `/comments`. You should
 see the JSON you seeded. Try making a curl request to send JSON to your API:
 
 ```bash
-curl --include --request POST http://localhost:3000/posts \
+curl --include --request POST http://localhost:4741/posts \
 --header "Content-Type: application/json" \
 --data: '{
         "post": {
@@ -420,7 +420,7 @@ commands to generate each:
 -   `bundle exec rails g serializer comment`,
 -   `bundle exec rails g serializer post`
 
--   Navigate to `localhost:3000/users` and see what you have.  In your serializer
+-   Navigate to `localhost:4741/users` and see what you have.  In your serializer
 files try adding more `attributes` as keys, and see how this changes. (check
 your `db/schema` file for some ideas.)
 -   After adding attribute fields to your user, post and comment serializers add a
@@ -438,4 +438,5 @@ semantic)
 ## [License](LICENSE)
 
 1.  All content is licensed under a CC­BY­NC­SA 4.0 license.
-1.  All software code is licensed under GNU GPLv3. For commercial use or alternative licensing, please contact legal@ga.co.
+1.  All software code is licensed under GNU GPLv3. For commercial use or
+    alternative licensing, please contact legal@ga.co.
