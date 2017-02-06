@@ -6,72 +6,69 @@
 
 By the end of this lesson, students should be able to:
 
--   Explain why a back-end is necessary.
--   List some of the responsibilities of a typical back-end, and identify which
-    components within (R)MVC map to those responsibilities.
--   Explain the process flow from Client through Database and back
--   Map (R)MVC roles to specific components of Rails.
+-   Explain why an API is necessary.
+-   List some of the responsibilities of a typical API, and identify which
+    components within MVC map to those responsibilities.
+-   Diagram the process flow from Client through Database and back
+-   Map MVC roles to specific components of Rails.
 -   Indicate where different types of files can be found within a Rails
     application.
--   Bear witness to the creation of an API.
+-   Recall how to use `rails generate` for starting `models`, `controllers`,
+    and `serializers`.
 
 ## Preparation
 
-1.  [Fork and clone](https://github.com/ga-wdi-boston/meta/wiki/ForkAndClone)
-    this repository.
-1.  Create a new branch, `training`, for your work.
-1.  **DO NOT INSTALL DEPENDENCIES**
+No preparation necessary for developers.
 
 ## Prerequisites
 
--   [Ruby object inheritance](https://github.com/ga-wdi-boston/ruby-object-inheritance)
--   [HTTP](https://github.com/ga-wdi-boston/http-json-discussion)
+-   [Ruby Object Inheritance](https://github.com/ga-wdi-boston/ruby-object-inheritance)
+-   [HTTP & JSON](https://github.com/ga-wdi-boston/http-json-discussion)
 
-## Who Needs A Back-End
+## Who Needs An API
 
-In Unit 1, each of you built a front-end application; it had a UI and
-behavioral logic, allowing users to play Tic Tac Toe in the browser. Isn't that
-enough? Why might we want a back-end?
+By now, you've built a client application: it had a user interface (UI) and
+behavioral logic, allowing users to play Tic-Tac-Toe in the browser. Isn't that
+enough? Why might we want an API?
 
 One possible reason is that when two different people are served up a web page,
-they each have a _separate copy_ of everything on the page. As a result, if we
-have two users interacting with our app, _they can never interact with each
-other, or even be aware of each other_. That significantly hampers what our app
-is capable of doing.
+they each have a separate copy of everything on the page. As a result, if we
+have two users interacting with our app, they can never interact with each
+other, or even be aware of each other.
 
 Another possible reason is that we might want want to store the state of the
 game over time. What if we wanted to be able to 'save' our game, close the
-browser, walk away, and pick it up again the next day? Having a back-end where
-data is stored means that we can do just that.
+browser, walk away, and pick it up again the next day? Having an API where
+data is stored means that we can do just that. This is known as
+**persistence** (things being saved over time).
 
-There are some workarounds that might allow us to have **persistence** (things
-being saved over time) in the browser alone; however, this is a more advanced
-topic, and won't be touched on today.
+For your client, we provided an API that could do all that. But how did it
+work?
 
-Fortunately, in the Unit 1 Project, you were given a pre-built back-end that
-could do all of those things. But how did it do them?
+## Lab - Design Your Own API
 
-## Your Turn :: Design Your Own Back-End
+In your squads, take ten minutes (and a patch of whiteboard), and write out all
+the different things that you think that the API for your Tic-Tac-Toe clients
+needed to do in order to work correctly.
 
-In your squads, take fifteen minutes (and a patch of whiteboard), and write out
-all the different things that you think that the back-end to your Tic Tac Toe
-apps needed to do in order to work correctly. Then, once you've done this, take
-a second look at what you've written down. Assuming you were to try to build a
-Ruby program to handle all of these different tasks, what abstractions would
-you need? How would the different responsibilities be broken up? Make a list.
+Then, once you've done this, take a second look at what you've written down.
+Assuming you were to try to build a Ruby program to handle all of these
+different tasks, what abstractions would you need? How would the different
+responsibilities be broken up? Make a list. It doesn't matter how "correct" it
+is. For this part, recall our strategies in modeling. What are the relevant
+nouns and verbs?  Big ideas and details?
 
-Once all groups are finished, we'll be sharing out our results and having a
-class-wide discussion.
+Once all groups are finished, we'll discuss our results.
 
-## One Possible Solution :: (R)MVC
+## One Possible Solution - Model-View-Controller
 
-Suppose we wanted to build an back-end app that records a user's height and
+Suppose we wanted to build an API app that records a user's height and
 weight. It might work as follows:
 
 1.  A user interacts with a front-end application, triggering a POST, and this
     POST request contains data - specifically, the latest measurements of
     height and weight.
-1.  When the POST request is received by the server, the back-end app parses the
+1.  When the POST request is received by the server, the API app parses the
     request and extracts the relevant information.
 1.  The data from the POST request gets added to our records.
 1.  As confirmation, a JSON with a unique identifier (so we can refer to this
@@ -81,7 +78,7 @@ Our app can also retrieve records, like so:
 
 1.  Something on the front-end (probably driven by user interaction) triggers a
     GET request that asks for a specific record.
-1.  When the GET request is received by the server, the back-end app parses the
+1.  When the GET request is received by the server, the API app parses the
     request and identifies which measurement record is being requested.
 1.  The data for the desired measurement gets retrieved from our set of
     records.
@@ -102,10 +99,10 @@ The quartet of 'create', 'read', 'update', and 'destroy' is commonly known as
 data storage system. Each of these types might have more than one specific
 action associated with it ('read one' vs 'read all', for instance).
 
-One common way of dividing up these four responsibilities is the '**MVC**'
-(_Model-View-Control_) architecture pattern. This pattern involves making three
-core types of components, each responsible for a different part of the app's
-functionality.
+One common way of dividing up these four responsibilities is the
+**Model-View-Controller** (MVC) architecture pattern. This pattern involves
+making three core types of components, each responsible for a different part of
+the API's functionality.
 
 A **Model** directly manages the data in our application, and provides a
 representation of that data for the rest of the application to use.
@@ -118,148 +115,63 @@ the model and the view components to perform the desired behavior and produce a
 response.
 
 In addition to these three types of components, however, there is a fourth
-piece that it's important to consider with web apps in particular -
-**routing**. **Routes** indicate to the server which controllers should be
+piece that it's important to consider with web development particularly:
+routing. **Routes** indicate to the server which controllers should be
 triggered (and how) by which kinds of requests. It's a critical piece of the
 puzzle, and one we'll be looking at later today in more detail.
 
-(R)MVC architecture is very common in web applications, and Rails (as we'll
-soon see) gives us the tools to spin up applications that are roughly in line
-with the idea of (R)MVC.
+What which part(s) of an HTTP request does the router use to determine which
+code to run?
 
-## Your Turn :: Act Out an (R)MVC Back-End
+MVC architecture is very common in web applications, and Rails gives us the
+tools to spin up applications that are roughly in line with the idea of MVC.
 
-We're going to act our the various parts of an (R)MVC application. Link up with
-another squad so that you're in a group of roughly seven, and assign each
-member of your 'super-group' one of the roles below. These roles are:
+## Lab - Act Out an MVC API
+
+We're going to act our the various parts of an MVC application. Link up with
+another squad so that you're in a group of eight, and assign each member of
+your 'super-group' one of the roles below. These roles are:
 
 -   Client
 -   Server
 -   Controllers
-   -People Controller
-   -Places Controller
-   -Things Controller
+
+   -   People Controller
+   -   Places Controller
+   -   Things Controller
+
 -   Models
-   -People Model
-   -Places Model
-   -Things Model
+
+   -   People Model
+   -   Places Model
+   -   Things Model
 
 Once you've divvied up the roles, take two minutes to read through the
-directions for your role, found `./roles`; these directions explain what your
-responsibilities are and how you should carry them out. However, **you may only
-communicate with the teammates listed in your role card**.
+directions for your role, found [`./roles`]('./roles'). These directions
+explain what your responsibilities are and how you should carry them out.
+However, **you may only communicate with the teammates listed in your role
+card**.
 
-We'll work through one example request together, and then each super-group will
-work independently to answer all remaining requests. Once all groups have
-finished, we'll have a discussion about how everything went, what made sense,
-and what didn't make sense.
+We'll work through one example request together, and then each group will work
+independently to answer all remaining requests. Once all groups have finished,
+we'll have a retro-style discussion about how everything went.
 
-## (R)MVC with Rails
+## MVC with Rails
 
-**Rails** is a web framework - a tool that helps us quickly and easily build
-web applications - written in Ruby, and designed and created by a Danish
-programmer named David Heinemeier Hannson (also known as 'DHH'). Although Rails
-applications don't match up perfectly with the abstract idea of MVC, their
-architecture is fairly similar.
+Rails is a web framework - a tool that helps us quickly and easily build
+web applications - written in Ruby, and designed and created by David
+Heinemeier Hannson (also known as 'DHH'). Although Rails applications don't
+match up perfectly with the abstract idea of MVC, their architecture is fairly
+similar.
 
 Let's take a look at an actual Rails app and see how it lines up. Fork and
-clone [this repo](https://github.com/ga-wdi-boston/rails-tic-tac-toe-api).
-Recognize it? It's your Tic Tac Toe back-end from Project 1! Now open it up in
-Atom - you should see a file structure like this:
+clone [this repo](https://github.com/ga-wdi-boston/game-project-api). Recognize
+it? It's the Tic-Tac-Toe API!
 
-```bash
-.
-├── Gemfile
-├── Gemfile.lock
-├── LICENSE
-├── Procfile
-├── README.md
-├── README.rdoc
-├── Rakefile
-├── app
-│   ├── assets
-│   │   ├── images
-│   │   └── stylesheets
-│   │       └── application.css
-│   ├── controllers
-│   │   ├── application_controller.rb
-│   │   ├── concerns
-│   │   ├── games_controller.rb
-│   │   ├── open_read_controller.rb
-│   │   ├── protected_controller.rb
-│   │   └── users_controller.rb
-│   ├── helpers
-│   │   └── application_helper.rb
-│   ├── mailers
-│   ├── models
-│   │   ├── concerns
-│   │   │   ├── authentication.rb
-│   │   │   ├── listen_notify.rb
-│   │   │   └── tic_tac_toe_validation.rb
-│   │   ├── game.rb
-│   │   └── user.rb
-│   ├── serializers
-│   │   ├── game_serializer.rb
-│   │   └── user_serializer.rb
-│   └── views
-│       └── layouts
-│           └── application.html.erb
-├── bin
-│   ├── bundle
-│   ├── rails
-│   ├── rake
-│   └── setup
-├── config
-│   ├── application.rb
-│   ├── boot.rb
-│   ├── database.yml
-│   ├── environment.rb
-│   ├── environments
-│   │   ├── development.rb
-│   │   ├── production.rb
-│   │   └── test.rb
-│   ├── initializers
-│   │   ├── backtrace_silencers.rb
-│   │   ├── cookies_serializer.rb
-│   │   ├── filter_parameter_logging.rb
-│   │   ├── inflections.rb
-│   │   ├── mime_types.rb
-│   │   ├── session_store.rb
-│   │   └── wrap_parameters.rb
-│   ├── locales
-│   │   └── en.yml
-│   ├── puma.rb
-│   ├── routes.rb
-│   └── secrets.yml
-├── config.ru
-├── db
-│   ├── migrate
-│   │   ├── 20150602144919_create_users.rb
-│   │   └── 20150626193830_create_games.rb
-│   ├── schema.rb
-│   └── seeds.rb
-├── lib
-│   ├── assets
-│   └── tasks
-├── log
-├── public
-│   ├── 404.html
-│   ├── 422.html
-│   ├── 500.html
-│   ├── favicon.ico
-│   └── robots.txt
-└── vendor
-    └── assets
-        ├── scripts
-        │   └── resource-watcher-0.1.0.js
-        └── stylesheets
+Open it up in Atom. Have a look at the file structure. Let's take a step back
+and just look at directories at the top level of the app.
 
-```
-
-There are a **ton** of things in here, so let's take a step back and just look
-at directories at the top level of the app.
-
-```bash
+```sh
 .
 ├── app
 ├── bin
@@ -270,6 +182,13 @@ at directories at the top level of the app.
 ├── public
 └── vendor
 ```
+
+For now, you only need to think about `app`, `config`, and `db` - you probably
+won't be touching any code outside of those three directories. How is that
+possible? Because Rails actually builds out most of these files and folders for
+you, every time you use it to create a new application. That's why it's called
+a 'framework' - it gives you the skeleton for a brand new app, which you can
+then customize.
 
 -   The `app` directory holds the code for our application itself. We'll be
     writing a lot of code here.
@@ -279,15 +198,12 @@ at directories at the top level of the app.
     plug into it. This includes things like environmental variable settings and
     secret keys, but also things like the routing configuration for our server
     (which is not strictly part of our Rails app, but which our app uses);
-    **the `routes.rb` file, in particular, defines all of the routing for our
-    app.**
+    the `routes.rb` file, in particular, defines all of the routing for our
+    app.
 -   `db` holds files related to the structure of the application's database.
     The database, like the server, is separate from Rails and is not strictly
     part of the app, so it makes sense to keep this outside of the `app`
     directory.
-
-More on this soon.
-
 -   `log` is a place where Rails keeps its log files - records of things that
     have happened when the app was running. Looking through here can sometimes
     be helpful if you've hit a bug.
@@ -297,143 +213,121 @@ More on this soon.
 -   `vendor` holds non-gem software that our app will use. Don't worry too much
     about this one for now.
 
-For now, you only need to think about `app`, `config`, and `db` - you probably
-won't be touching any code outside of those three directories. How is that
-possible? Because Rails actually builds out most of these files and folders for
-you, every time you use it to create a new application. That's why it's called
-a 'framework' - it gives you the skeleton for a brand new app, which you can
-then customize.
-
 Let's dive into the `app` directory. This app in particular has more going on
 than yours probably will, but it still has all the basic components.
 
 ```bash
 ./app
-├── assets
-│   ├── images
-│   └── stylesheets
-│       └── application.css
+├── channels
 ├── controllers
-│   ├── application_controller.rb
-│   ├── concerns
-│   ├── games_controller.rb
-│   ├── open_read_controller.rb
-│   ├── protected_controller.rb
-│   └── users_controller.rb
-├── helpers
-│   └── application_helper.rb
+├── jobs
 ├── mailers
 ├── models
-│   ├── concerns
-│   │   ├── authentication.rb
-│   │   ├── listen_notify.rb
-│   │   └── tic_tac_toe_validation.rb
-│   ├── game.rb
-│   └── user.rb
 ├── serializers
-│   ├── game_serializer.rb
-│   └── user_serializer.rb
 └── views
-    └── layouts
-        └── application.html.erb
 ```
 
 Three of these directories should jump out at you: `controllers`, `models`, and
 `views`. Each holds the different Ruby files that Rails uses to handle the
 respective responsibilities of MVC.
 
-Don't worry about `assets`, `serializers`, `mailers`, or `helpers` for now.
+Don't worry about `assets`, `serializers`, `mailers`, or `helpers` for now. In
+API-style applications, `serializers` replace all the views that we care about
+for this program, so we can safely skip the `views` folder as well.
 
 ## Demo: Building our first Rails App
 
 Now that we've conceptually wrapped our heads around what goes into a backend
 lets make one ourselves.
 
-**This is intended to show you how powerful Rails is; not so you understand!!**
-**We will go further into _how_ Rails works later on**
+**WARNING:** Do not ask "why?". None of this should "make sense", yet. Instead,
+focus on the commands I'm running and watch how Rails automatically organizes
+our code. The `rails generate` commands are particularly interesting.
 
-### Creating a Blog
+### Creating a Blog API
 
--   Run `rails-api new blog_app --skip-javascript --skip-sprockets
-    --skip-turbolinks --skip-test-unit --database=postgresql`
--   Scaffold our User, Posts and Comments
-  - `bundle exec rails-api generate scaffold user email:string password:string`
-  - `bundle exec rails-api generate scaffold post title:string body:text
-    user:references`
-  - `bundle exec rails-api generate scaffold comment body:text user:references
-    post:references`
+-   Use the quite-excellent [Rails API
+    Template](https://github.com/ga-wdi-boston/rails-api-template), already
+    included in this repository for our convenience.
+-   Scaffold our Posts and Comments (Users come with the template!)
+    -   `bin/rails generate scaffold post title:string body:text
+        user:references`
+    -   `bin/rails generate scaffold comment body:text user:references
+        post:references`
 -   Now lets create and migrate our database by typing in:
-  - `bundle exec rake db:create`
-  - `bundle exec rake db:migrate`
--   Lets start our server! type: `bundle exec rails server`, some people may
-    have this aliased as as `bundle exec rails s` or `bundle exec rails serve`
+    -   `bin/rake db:create`
+    -   `bin/rake db:migrate`
+-   Start the server! `bin/rails server`
 -   Now navigate to `localhost:4741/users` (empty brackets is a good sign)
--   Lets actually see some data, by seeding our `db/examples.rb` file.
+-   Let's actually see some data, by adding it to our `db/examples.rb` file.
+    ```ruby
+    %w(alice bob charlie dana).each do |name|
+      email = "#{name}@#{name}.com"
+      next if User.exists? email: email
+      User.create!(email: email,
+                   password: 'abc123',
+                   password_confirmation: nil)
+    end
 
-```ruby
-u1 = User.create(email: 'TomBrady@patriots.com', password: 'passking')
-u2 = User.create(email: 'PeytonManning@sucker.com', password: 'password')
+    %w(alice bob).each_with_index do |name, i|
+      title = "Dear Diary Number #{i}"
+      email = "#{name}@#{name}.com"
+      next if Post.exists? title: title
+      Post.create!(title: title,
+                   body: "Another beautiful day!"
+                   user: User.find_by(email: email))
+    end
 
-p1 = u1.posts.create(title: 'Firsty McPost', body: 'Pats rock and other stuff')
-p2 = u1.posts.create(title: 'Secondy Posty', body: 'New England is still awesome')
+    %w(charlie dana).each do |name|
+      body = "Great post!"
+      email = "#{name}@#{name}.com"
+      next if Comment.exists? body: body, email: email
+      Comment.create!(body: body
+                      user: User.find_by(email: email))
+    end
+    ```
 
-p3 = u2.posts.create(title: 'HgH Post', body: 'Anybody got PEDs?')
-p4 = u2.posts.create(title: 'Superbowl fail', body: 'I won, but still lost.')
+-   Now we have to update the models with relationships. Put the following in
+    the user model (`model/user.rb`):
+    ```ruby
+    class User < ActiveRecord::Base
+      has_many :posts
+      has_many :comments
+    end
+    ```
 
-p3.comments.create(body: "You're an idiot", user: u1)
-p4.comments.create(body: "Ya, you were kinda terrible", user: u1)
-```
+-   And add this to the post model (`model/post.rb`):
+    ```ruby
+    class Post < ActiveRecord::Base
+      has_many :comments
+    end
+    ```
 
--   Now we have to update our models with relationships put the following in
-    your user model (`model/user.rb`):
-
-```ruby
-class User < ActiveRecord::Base
-  has_many :posts
-  has_many :comments
-end
-```
-
--   and your post model (`model/post.rb`):
-
-```ruby
-class Post < ActiveRecord::Base
-  has_many :comments
-end
-```
-
--   Now seed your database by running `bundle exec rake db:example`
--   Or  `bundle exec rake db:drop db:create db:migrate`
+-   Now fill the database with examples by running `bin/rake db:examples`
+-   If we need to reset entirely, `bin/rake db:drop db:create db:migrate
+    db:seed db:examples`
 -   Try navigating to `localhost:4741/users` or `/posts` or `/comments`. You
     should see the JSON you seeded. Try making a curl request to send JSON to
     your API:
-
-```bash
-curl --include --request POST http://localhost:4741/posts \
---header "Content-Type: application/json" \
---data '{
+    ```bash
+    curl http://localhost:4741/posts \
+    --include \
+    --request POST \
+    --header "Content-Type: application/json" \
+    --data '{
         "post": {
           "title": "a sample title",
           "body": "a sample body"
         }
       }'
-```
+    ```
 
-**Serializers**
-
--   Now lets generate our User, Post and Comment serializers. Use the following
-    commands to generate each:
-
--   `bundle exec rails generate serializer user`,
--   `bundle exec rails generate serializer comment`,
--   `bundle exec rails generate serializer post`
--   Navigate to `localhost:4741/users` and see what you have.  In your
-    serializer files try adding more `attributes` as keys, and see how this
-    changes. (check your `db/schema` file for some ideas.)
--   After adding attribute fields to your user, post and comment serializers
-    add a has many relation ship to your user serializer.  something like this
-    blow your attributes line: `has_many :posts`  (notice the plural here,
-    rails is very semantic)
+-   Navigate to `localhost:4741/users` and see what we have.  In the serializer
+    files try adding more `attributes` as keys, and see how this changes.
+    (check the `db/schema` file for some ideas.)
+-   After adding attribute fields to the user, post and comment serializers
+    add a `has_many` relationship to user serializer to match the relationship
+    added to the user model.
 
 ## Tasks
 
@@ -451,10 +345,10 @@ Developers should run these often!
 
 ## Additional Resources
 
--   **[RailsGuides](http://guides.rubyonrails.org/getting_started.html)**
--   **[Official Rails Documentation](http://rubyonrails.org/documentation/)**
--   **[MVC](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller)**
--   **[JSON API](https://thesocietea.org/2015/02/building-a-json-api-with-rails-part-1-getting-started/)**
+-   [RailsGuides](http://guides.rubyonrails.org/getting_started.html)
+-   [Official Rails Documentation](http://rubyonrails.org/documentation/)
+-   [MVC](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller)
+-   [JSON API](https://thesocietea.org/2015/02/building-a-json-api-with-rails-part-1-getting-started/)
 
 ## [License](LICENSE)
 
