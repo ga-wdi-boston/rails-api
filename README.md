@@ -424,9 +424,9 @@ curl --include --request POST http://localhost:4741/posts \
 -   Now lets generate our User, Post and Comment serializers. Use the following
     commands to generate each:
 
--   `bundle exec rails g serializer user`,
--   `bundle exec rails g serializer comment`,
--   `bundle exec rails g serializer post`
+-   `bundle exec rails generate serializer user`,
+-   `bundle exec rails generate serializer comment`,
+-   `bundle exec rails generate serializer post`
 -   Navigate to `localhost:4741/users` and see what you have.  In your
     serializer files try adding more `attributes` as keys, and see how this
     changes. (check your `db/schema` file for some ideas.)
