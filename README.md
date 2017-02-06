@@ -411,7 +411,7 @@ end
 ```bash
 curl --include --request POST http://localhost:4741/posts \
 --header "Content-Type: application/json" \
---data: '{
+--data '{
         "post": {
           "title": "a sample title",
           "body": "a sample body"
