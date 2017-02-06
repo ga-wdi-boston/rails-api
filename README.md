@@ -435,6 +435,20 @@ curl --include --request POST http://localhost:4741/posts \
     blow your attributes line: `has_many :posts`  (notice the plural here,
     rails is very semantic)
 
+## Tasks
+
+Developers should run these often!
+
+-   `bin/rake routes` lists the endpoints available in your API.
+-   `bin/rake test` runs automated tests.
+-   `bin/rails console` opens a REPL that pre-loads the API.
+-   `bin/rails db` opens your database client and loads the correct database.
+-   `bin/rails server` starts the API.
+-   `scripts/*.sh` run various `curl` commands to test the API. See below.
+
+<!-- TODO -   `rake nag` checks your code style. -->
+<!-- TODO -   `rake lint` checks your code for syntax errors. -->
+
 ## Additional Resources
 
 -   **[RailsGuides](http://guides.rubyonrails.org/getting_started.html)**
