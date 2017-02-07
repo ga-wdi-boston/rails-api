@@ -17,3 +17,30 @@
 #                password: 'abc123',
 #                password_confirmation: nil)
 # end
+
+%w(alice bob charlie dana).each do |name|
+  email = "#{name}@#{name}.com"
+  next if User.exists? email: email
+  User.create!(email: email,
+               password: 'abc123',
+               password_confirmation: nil)
+end
+
+%w(alice bob).each_with_index do |name, i|
+  title = "Dear Diary Number #{i}"
+  email = "#{name}@#{name}.com"
+  next if Post.exists? title: title
+  Post.create!(title: title,
+               body: "Another beautiful day!",
+               user: User.find_by(email: email))
+end
+
+%w(charlie dana).each do |name|
+  body = "Great post!"
+  email = "#{name}@#{name}.com"
+  user = User.find_by(email: email)
+  next if Comment.exists? body: body, user: user
+  Comment.create!(body: body,
+                  post: Post.all.sample,
+                  user: user)
+end
