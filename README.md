@@ -128,7 +128,7 @@ tools to spin up applications that are roughly in line with the idea of MVC.
 
 ## Lab - Act Out an MVC API
 
-We're going to act our the various parts of an MVC application. Link up with
+We're going to act out the various parts of an MVC application. Link up with
 another squad so that you're in a group of eight, and assign each member of
 your 'super-group' one of the roles below. These roles are:
 
