@@ -18,7 +18,7 @@ By the end of this lesson, developers should be able to:
 
 ## Preparation
 
-No preparation necessary for developers.
+-   Run `gem install rails`
 
 ## Prerequisites
 
