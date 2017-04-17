@@ -4,7 +4,7 @@
 
 ## Objectives
 
-By the end of this lesson, students should be able to:
+By the end of this lesson, developers should be able to:
 
 -   Explain why an API is necessary.
 -   List some of the responsibilities of a typical API, and identify which
