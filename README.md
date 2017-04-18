@@ -4,7 +4,7 @@
 
 ## Objectives
 
-By the end of this lesson, students should be able to:
+By the end of this lesson, developers should be able to:
 
 -   Explain why an API is necessary.
 -   List some of the responsibilities of a typical API, and identify which
@@ -18,7 +18,7 @@ By the end of this lesson, students should be able to:
 
 ## Preparation
 
-No preparation necessary for developers.
+-   Run `gem install rails`
 
 ## Prerequisites
 
@@ -128,7 +128,7 @@ tools to spin up applications that are roughly in line with the idea of MVC.
 
 ## Lab - Act Out an MVC API
 
-We're going to act our the various parts of an MVC application. Link up with
+We're going to act out the various parts of an MVC application. Link up with
 another squad so that you're in a group of eight, and assign each member of
 your 'super-group' one of the roles below. These roles are:
 
@@ -264,26 +264,24 @@ our code. The `rails generate` commands are particularly interesting.
     %w(alice bob charlie dana).each do |name|
       email = "#{name}@#{name}.com"
       next if User.exists? email: email
-      User.create!(email: email,
-                   password: 'abc123',
-                   password_confirmation: nil)
+      User.create!(email: email, password: 'abc123', password_confirmation: nil)
     end
 
-    %w(alice bob).each_with_index do |name, i|
+    %w(alice bob dana).each_with_index do |name, i|
       title = "Dear Diary Number #{i}"
       email = "#{name}@#{name}.com"
-      next if Post.exists? title: title
-      Post.create!(title: title,
-                   body: "Another beautiful day!"
-                   user: User.find_by(email: email))
+      user = User.find_by(email: email)
+      next if Post.exists? title: title, user_id: user.id
+      Post.create!(title: title, body: "Another beautiful day!", user_id: user.id)
     end
 
-    %w(charlie dana).each do |name|
+    %w(charlie).each do |name|
       body = "Great post!"
       email = "#{name}@#{name}.com"
-      next if Comment.exists? body: body, email: email
-      Comment.create!(body: body
-                      user: User.find_by(email: email))
+      user = User.find_by(email: email)
+      post = User.find_by(email: "dana@dana.com").posts.first
+      next if Comment.exists? body: body, user_id: user.id
+      Comment.create!(body: body, user: user, post_id: post.id)
     end
     ```
 
