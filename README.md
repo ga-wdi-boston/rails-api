@@ -264,26 +264,24 @@ our code. The `rails generate` commands are particularly interesting.
     %w(alice bob charlie dana).each do |name|
       email = "#{name}@#{name}.com"
       next if User.exists? email: email
-      User.create!(email: email,
-                   password: 'abc123',
-                   password_confirmation: nil)
+      User.create!(email: email, password: 'abc123', password_confirmation: nil)
     end
 
-    %w(alice bob).each_with_index do |name, i|
+    %w(alice bob dana).each_with_index do |name, i|
       title = "Dear Diary Number #{i}"
       email = "#{name}@#{name}.com"
-      next if Post.exists? title: title
-      Post.create!(title: title,
-                   body: "Another beautiful day!"
-                   user: User.find_by(email: email))
+      user = User.find_by(email: email)
+      next if Post.exists? title: title, user_id: user.id
+      Post.create!(title: title, body: "Another beautiful day!", user_id: user.id)
     end
 
-    %w(charlie dana).each do |name|
+    %w(charlie).each do |name|
       body = "Great post!"
       email = "#{name}@#{name}.com"
-      next if Comment.exists? body: body, email: email
-      Comment.create!(body: body
-                      user: User.find_by(email: email))
+      user = User.find_by(email: email)
+      post = User.find_by(email: "dana@dana.com").posts.first
+      next if Comment.exists? body: body, user_id: user.id
+      Comment.create!(body: body, user: user, post_id: post.id)
     end
     ```
 
